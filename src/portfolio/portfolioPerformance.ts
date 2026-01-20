@@ -16,14 +16,14 @@ export interface PerformanceData {
 export function calculatePortfolioPerformance(currentValue: number, initialInvestment: number): PerformanceData {
 
     // The profit or Loss from the portfolio.
-    const profitOrLoss = currentValue - initialInvestment;
+    const profitOrLoss: number = currentValue - initialInvestment;
 
     // The percentage profit or loss from the portfolio
-    const percentageChange = (profitOrLoss / initialInvestment) * 100;
+    const percentageChange: number = (profitOrLoss / initialInvestment) * 100;
 
     // The performance summary depending on the percentage 
     // profit or loss the investment made.
-    let performanceSummary =
+    const performanceSummary: string =
         percentageChange >= 30
         ? "Excellent performance! Your investments are doing great."
         : percentageChange >= 10

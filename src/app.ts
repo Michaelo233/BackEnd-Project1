@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import { PerformanceData } from "./portfolio/portfolioPerformance";
 
 // Initialize Express application
 const app: Express = express();
@@ -30,8 +31,8 @@ app.get("/api/v1/health", (req, res) => {
 app.get("/api/v1/portfolio/performance", (req, res) => {
 
     // Gets query string from postman assign them to currentValue and initialInvestment.
-    const initialInvestment = Number(req.query.initialInvestment);
-    const currentValue = Number(req.query.currentValue);
+    const initialInvestment: number = Number(req.query.initialInvestment);
+    const currentValue: number = Number(req.query.currentValue);
 
     // checks for when initialInvestment and currentValue has no value.
     if (!initialInvestment || !currentValue) {
@@ -49,7 +50,7 @@ app.get("/api/v1/portfolio/performance", (req, res) => {
     };
 
     // Calls the function, and return result to the api as a json.
-    const calculatedPerformance = calculatePortfolioPerformance(currentValue, initialInvestment);
+    const calculatedPerformance: PerformanceData = calculatePortfolioPerformance(currentValue, initialInvestment);
     res.json(calculatedPerformance);
 });
 
