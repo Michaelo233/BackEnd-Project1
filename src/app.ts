@@ -28,12 +28,27 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 app.get("/api/v1/portfolio/performance", (req, res) => {
+
+    // Gets query string from postman assign them to currentValue and initialInvestment.
     const initialInvestment = Number(req.query.initialInvestment);
     const currentValue = Number(req.query.currentValue);
-    if (!initialInvestment || !currentValue) {
-    return res.status(400).json({ error: "initialInvestment and currentValue are required" });
-    }
 
+    // checks for when initialInvestment and currentValue has no value.
+    if (!initialInvestment || !currentValue) {
+        return res.status(400).json({ error: "initialInvestment and currentValue are required" });
+    };
+
+    // checks for when initialInvestment is invalid
+    if (typeof initialInvestment !== "number") {
+        return res.status(400).json({ error: "initialInvestment are invalid" });
+    };
+
+    // checks for when currentValue is invalid
+    if (typeof currentValue !== "number") {
+        return res.status(400).json({ error: "currentValue are invalid" });
+    };
+
+    // Calls the function, and return result to the api as a json.
     const calculatedPerformance = calculatePortfolioPerformance(currentValue, initialInvestment);
     res.json(calculatedPerformance);
 });
