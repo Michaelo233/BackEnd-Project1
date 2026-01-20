@@ -1,16 +1,28 @@
+// Represents the structure of the performance data for an investment portfolio.
 export interface PerformanceData {
     currentValue: number,
     initialInvestment: number,
     profitOrLoss: number,
     percentageChange: number,
-    performanceSummary: string};
+    performanceSummary: string
+};
 
+/** 
+ * Calculates the performance of a portfolio based on the initial investment and currentValue
+ * @param currentValue - The current value of the calculatePortfolioPerformance
+ * @param initialInvestment - The original amount invested
+ * @returns An object containing currentValue, initialInvestment, profitOrLoss, percentageChange, performanceSummary
+*/
 export function calculatePortfolioPerformance(currentValue: number, initialInvestment: number): PerformanceData {
 
+    // The profit or Loss from the portfolio.
     const profitOrLoss = currentValue - initialInvestment;
 
+    // The percentage profit or loss from the portfolio
     const percentageChange = (profitOrLoss / initialInvestment) * 100;
 
+    // The performance summary depending on the percentage 
+    // profit or loss the investment made.
     let performanceSummary =
         percentageChange >= 30
         ? "Excellent performance! Your investments are doing great."
