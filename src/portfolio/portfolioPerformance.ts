@@ -1,4 +1,4 @@
-interface PerformanceData {
+export interface PerformanceData {
     currentValue: number,
     initialInvestment: number,
     profitOrLoss: number,
@@ -19,8 +19,10 @@ export function calculatePortfolioPerformance(currentValue: number, initialInves
         : percentageChange > 0
         ? "Modest gain. Your portfolio is growing slowly."
         : percentageChange === 0
-        ?"No change. Your portfolio is holding steady."
-        : "The portfolio has performed poorly.";
+        ? "No change. Your portfolio is holding steady."
+        : percentageChange >= -10
+        ? "Minor loss. Stay calm and review your options."
+        : "Significant loss. Review your portfilio strategy.";
 
 
     return {
@@ -30,4 +32,4 @@ export function calculatePortfolioPerformance(currentValue: number, initialInves
         percentageChange,
         performanceSummary,
     };
-}
+};
