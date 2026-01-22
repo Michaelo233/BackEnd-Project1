@@ -29,25 +29,32 @@ app.get("/api/v1/health", (req, res) => {
 });
 
 app.get("/api/v1/portfolio/performance", (req, res) => {
-
+    const errors: string[] = []
     // Gets query string from postman assign them to currentValue and initialInvestment.
     const initialInvestment: number = Number(req.query.initialInvestment);
     const currentValue: number = Number(req.query.currentValue);
-
     // checks for when initialInvestment and currentValue has no value.
-    if (!initialInvestment || !currentValue) {
-        return res.status(400).json({ error: "initialInvestment and currentValue are required" });
+    if (req.query.initialInvestment === "") {
+        errors.push("initialInvestment is required");
+    };
+
+    if (req.query.currentValue === "") {
+        errors.push("currentValue is required");
     };
 
     // checks for when initialInvestment is invalid
-    if (typeof initialInvestment !== "number") {
-        return res.status(400).json({ error: "initialInvestment are invalid" });
+    if (req.query.initialInvestment !== "" && Number.isNaN(initialInvestment)) {
+        errors.push("initialInvestment should be numeric.");
     };
 
     // checks for when currentValue is invalid
-    if (typeof currentValue !== "number") {
-        return res.status(400).json({ error: "currentValue are invalid" });
+    if (req.query.currentValue !== "" && Number.isNaN(currentValue)) {
+        errors.push("currentValue should be numeric.");
     };
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    }
 
     // Calls the function, and return result to the api as a json.
     const calculatedPerformance: PerformanceData = calculatePortfolioPerformance(currentValue, initialInvestment);
